@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -e
+
+
+DEV_CONTAINER=lua-wasm-dev-env
+
+run() {
+  command=$@
+  is_container_running=`docker-compose -f docker/docker-compose.yml ps | grep -s $DEV_CONTAINER | grep -v grep | cat`
+
+  docker_cmd="run --rm --service-ports"
+  if [[ -n $is_container_running ]]; then
+    docker_cmd="exec"
+  fi
+
+  docker-compose -f docker/docker-compose.yml $docker_cmd $DEV_CONTAINER bash -c "source ~/.bashrc && $command"
+}
