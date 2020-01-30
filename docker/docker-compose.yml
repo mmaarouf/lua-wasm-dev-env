@@ -1,0 +1,15 @@
+version: '3.2'
+
+services:
+  lua-wasm-dev-env:
+    container_name: 'lua-wasm-dev-env'
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    stdin_open: true
+    tty: true
+    volumes:
+       - ..:/code
+    working_dir: /code
+    ports:
+      - "8888:8080"
