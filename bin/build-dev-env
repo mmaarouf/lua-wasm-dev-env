@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+source ./bin/set-up-env
+
+docker-compose -f docker/docker-compose.yml build $DEV_CONTAINER
