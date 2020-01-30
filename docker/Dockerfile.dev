@@ -1,0 +1,24 @@
+FROM debian:bullseye-slim
+
+RUN mkdir -p /usr/share/man/man1 && \
+    apt update && \
+    apt install  -y \
+        neovim \
+        git \
+        python \
+        openjdk-11-jdk  \
+        cmake
+
+# Installing wasm
+RUN git clone https://github.com/emscripten-core/emsdk.git && \
+    cd emsdk &&\
+    ./emsdk update-tags && \
+    ./emsdk install latest && \
+    ./emsdk activate latest && \
+    echo "source /emsdk/emsdk_env.sh" >> ~/.bashrc
+
+# Installing lua dependencies
+RUN apt install -y \
+      lua5.1 \
+      luarocks && \
+    wget -c https://www.lua.org/ftp/lua-5.1.5.tar.gz -O - | tar -xz
