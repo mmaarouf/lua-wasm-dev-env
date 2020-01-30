@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+source ./bin/set-up-env
+
+run emrun --no_browser --port 8080 ./out
